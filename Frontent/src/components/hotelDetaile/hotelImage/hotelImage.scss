@@ -1,0 +1,205 @@
+.hotel-preview{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px 65px;
+    gap: 5px;
+
+    .hotel-images{
+        display: flex;
+        width: 100%;
+        height: 450px;
+        margin-bottom: 15px;
+    }
+
+    .main-img{
+        display: flex;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        img{
+            display: block;
+            border-radius: 15px;
+            width: 80%;
+            height: 80%;
+        }
+    }
+    .side-img{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 25px;
+        width: 50%;
+        place-items: center;
+        height: 100%;
+        padding: 35px;
+
+        img{
+            display: block;
+            border-radius: 15px;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    article{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 35px;
+        padding: 15px 25px;
+
+        .left-article{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap: 15px;
+            width: 50%;
+            .facility{
+                list-style: none;
+                display: flex;
+                gap: 15px;
+                margin: 5px 0;
+                text-align: center;
+
+                li{
+                    display: block;
+                    flex-direction: column;
+                    width: 25%;
+                    padding: 1rem;
+                    border-radius: 15px;
+                    cursor: pointer;
+                    background-color: #ccc;
+
+                    i{
+                        font-size: 28px;
+
+                    }
+                }
+            }
+            .amenities{
+                display: flex;
+                align-items: center;
+                width: 100%;
+                gap: 15px;
+                text-align: center;
+                list-style: none;
+
+                li{
+                    width: 20%;
+                    padding: 1rem;
+                    border-radius: 15px;
+                    margin: 15px 0;
+                    background-color: #ccc;
+                }
+            }
+            .safety{
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                justify-content: center;
+                margin-bottom: 15px;
+                h1{
+                    font-size: 25px;
+                    font-weight: 550;
+                }
+                ul{
+                    list-style: none;
+                    display: grid;
+                    width: 100%;
+                    gap: 15px;
+                    font-size: 19px;
+                    grid-template-columns: repeat(2,1fr);
+                    i{
+                        font-size: 22px;
+                    }
+
+                }
+            }
+            .reviews{
+                display: flex;
+                flex-flow: column wrap;
+                width: 100%;
+                justify-content: center;
+
+                h1{
+                    font-size: 22px;
+                    margin-bottom: 15px;
+                }
+                ul{
+                    list-style: none;
+
+                }
+            }
+        }
+        .right-article{
+            display: flex;
+            flex-flow: column wrap;
+            width:40%;
+            align-items: center;
+            padding: 15px 55px;
+            gap: 8px;
+            box-shadow: 5px 2px 15px grey;
+
+            .discount{
+                font-weight: 700;
+                margin-bottom: 15px;
+                border-bottom: 2px solid orange;
+                width: max-content;
+                padding: 10px;
+                span{
+                    font-weight: 350;
+                }
+                .amount{
+                    color: orange;
+                    font-weight: 650;
+                }
+
+            }
+            p{
+                width: 80%;
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+            .detaile{
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                .dates{
+                    display: flex;
+                    width: 50%;
+                    gap: 25px;
+                    padding: 5px 15px;
+                    .check{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        input{
+                            padding: 5px 15px;
+                            outline: none;
+                            border: none;
+                            width: 150px;
+                        }
+                    }
+                }
+            }
+            button{
+                width: fit-content;
+                margin: 0 auto;
+                padding: 1em 2em;
+                background-color: rgb(7, 143, 80);
+                border: none;
+                color: white;
+                font-size: 22px;
+                font-weight: 550;
+                border-radius: 15px;
+                
+            }
+        }
+    }
+    margin-bottom: 45px;
+}

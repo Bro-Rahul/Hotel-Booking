@@ -1,0 +1,82 @@
+.admin-panel{
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    padding: 15px 95px;
+    width: 100%;
+    gap: 15px;
+    margin-bottom: 1000px;
+
+    .profile-cart{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        height:450px;
+        padding: 45px;
+        background-color: rebeccapurple;
+
+        .profile-image{
+            width: 60%;
+            height: 50%;
+            padding: 15px;
+            background-color: grey;
+            border-radius: 50%;
+            overflow: hidden;
+
+            img{
+                object-fit: cover;
+                display: block;
+                object-position: bottom;
+                
+            }
+           
+        }
+
+    }
+    .customer-history{
+        display: flex;
+        flex-direction: column;
+        padding: 15px 35px;
+        gap: 20px;
+
+        .ch-top{
+            font-size: 20px;
+
+            h6{
+                font-weight: 445;
+                font-size: 15px;
+                margin-top: 3px;
+            }
+
+        }
+        .ch-middle{
+            display: flex;
+            align-items: center;
+            gap: 55px;
+            font-size: 16px;
+            font-weight: 520;
+            cursor: pointer;
+
+            p{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 18px;
+                
+                span{
+                    font-size: 22px;
+                    display: inline-block;
+                    transform: translate(-2px,2px);
+
+                }
+            }
+
+        }
+        table{
+            text-align: center;
+            
+        }
+
+    }
+}

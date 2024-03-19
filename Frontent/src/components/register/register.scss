@@ -1,0 +1,55 @@
+.signup {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 5px;
+
+    h1 {
+        margin: 10px 0;
+    }
+
+    input {
+        outline: none;
+        padding: 5px 15px;
+        font-size: 18px;
+        font-weight: 450;
+        border-radius: 5px;
+        border: none;
+        margin: 8px 0;
+
+        &:focus {
+            box-shadow: 1px 1px 2px grey;
+        }
+    }
+
+    p {
+        text-transform: capitalize;
+    }
+
+    .forget {
+        text-decoration: none;
+        text-transform: capitalize;
+        font-size: 20px;
+        margin: 15px 0;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    button {
+        width: fit-content;
+        padding: 15px;
+        border: none;
+        background-color: rgb(158, 35, 240);
+        color: white;
+        font-size: 20px;
+        font-weight: 550;
+        text-transform: capitalize;
+        border-radius: 8px;
+        margin: 0 auto;
+    }
+    
+}
