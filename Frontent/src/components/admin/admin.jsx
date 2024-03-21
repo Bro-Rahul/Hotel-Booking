@@ -1,19 +1,43 @@
 import { FaSignOutAlt } from "react-icons/fa";
 import { TbBrandBooking } from "react-icons/tb";
 import { IoCashOutline } from "react-icons/io5";
+import { useState } from "react";
+import {Bar} from 'react-chartjs-2'
+import {Chart} from 'chart.js/auto'
 import './admin.scss'
 
+const data = {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [
+      {
+        label: 'My First Bar Graph',
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(75,192,192,0.4)',
+        hoverBorderColor: 'rgba(75,192,192,1)',
+        data: [12, 19, 3, 5, 2, 3]
+      }
+    ]
+  };
+  
+
 export default function AdminPanel() {
+    const [contentType, setContentType] = useState('Booking');
+    function handleClick(msg) {
+        setContentType(pre => msg)
+    }
+
     return (
         <section className='admin-panel'>
             <div className="profile-cart">
                 <div className="profile-image">
-                     <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"  width={'100%'} height={'100%'}/> 
+                    <img src="https://imgs.search.brave.com/NQRBwORwTJ3VOfZBXmY-MVxTW5iNPhSU-WSXBoHpWlk/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzllLzRk/LzljLzllNGQ5YzI1/ZGMwMGVlMWVmM2M2/MmJmNzY4NzgwMGZl/LmpwZw" width={'100%'} height={'100%'} />
                 </div>
-                <div>
+                <div className="info">
                     <h2>About</h2>
                     <h2>Rahul Yadav</h2>
-                    Sign Out <FaSignOutAlt />
+                    <p>Sign Out <FaSignOutAlt /></p>
                 </div>
             </div>
             <div className="customer-history">
@@ -22,11 +46,11 @@ export default function AdminPanel() {
                     <h6>Joinied in 2023-10-23</h6>
                 </div>
                 <div className="ch-middle">
-                        <p><span><TbBrandBooking /> </span>Current Booking </p>
-                    <p><span><IoCashOutline /></span> Amount Spent</p>
+                    <p onClick={() => handleClick('Booking')}><span><TbBrandBooking /> </span>Current Booking </p>
+                    <p onClick={() => handleClick('Amount Spend')}><span><IoCashOutline /></span> Amount Spent</p>
                 </div>
-
-                <table>
+                {contentType === 'Booking' ?
+                 <table>
                     <tr>
                         <th>ROOM NAME</th>
                         <th>UNIT PRICE</th>
@@ -41,16 +65,20 @@ export default function AdminPanel() {
                         <td>1</td>
                         <td>0</td>
                     </tr>
-                    <tr>
-                        <td>Rahul Yadav </td>
-                        <td>200</td>
-                        <td>184</td>
-                        <td>1</td>
-                        <td>0</td>
-                    </tr>
-                    
                 </table>
+                :   <div style={{width:'100%',height:'50vh'}}>
+                        <Bar
+                        data={data}
+                        width={100}
+                        height={50}
+                        options={{
+                        maintainAspectRatio: false
+                        }}
+                />
+                </div>
+                }
+
             </div>
-        </section>
+        </section >
     )
 }
