@@ -19,10 +19,17 @@ class AuthenticationSerializer(ModelSerializer):
 
     
 
+
+class HotelSerializer(ModelSerializer):
+    class Meta:
+        model = Hotel
+        fields = '__all__'
+
+
 class HotelImagesSerializer(ModelSerializer):
     class Meta:
         model = HotelImages
-        fields = ['hotel_image']
+        fields = '__all__'
 
 class HotelFacilitySerializer(ModelSerializer):
     class Meta:
@@ -34,17 +41,17 @@ class HotelReviewSerializer(ModelSerializer):
         model = HotelReviews
         fields = ['review','rating']
 
-class HotelSerializer(ModelSerializer):
+class HotelDetaileSerializer(ModelSerializer):
     images = HotelImagesSerializer(many=True)
     facility = HotelFacilitySerializer(many=True)
     reviews = HotelReviewSerializer(many=True)
     
     class Meta:
         model = Hotel
-        exclude = ['hotel_type']
+        fields = '__all__'
 
 class HotelCatogorySerializer(ModelSerializer):
-    type = HotelSerializer(many=True)
+    type = HotelReviewSerializer(many=True)
     class Meta:
         model = Catagories
         fields = '__all__'

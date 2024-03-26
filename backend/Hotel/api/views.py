@@ -94,12 +94,47 @@ class Authentication(ObtainAuthToken):
         return Response(info)
         
 
+
+
+
 # Hotel view starts here  
-class HotelView(APIView):
-    def get(self,request):
-        hotels = Hotel.objects.all()
-        serializer = HotelSerializer(hotels,many=True)
-        return Response(serializer.data)
+class CreateHotelView(APIView):
+    def post(self,request):
+        hotel_images = request.data['images']
+        hotel_info = {
+            'hotel_name' : request.data['hotel_name'],
+            'hotel_pincode' : request.data['hotel_pincode'],
+            'hotel_rate' : request.data['hotel_rate'],
+            'booked_status' : request.data['booked_status'],
+            'hotel_address' : request.data['hotel_address'],
+            'hotel_type' : request.data['hotel_type']
+
+        }
+        hotel_facility = request.data['facility']
+        hotel = Hotel.objects.get(hotel_name = hotel_info['hotel_name'])
+        for i in hotel_images:
+            images = {
+                'hotel_id' : hotel.pk,
+                'hotel_image' : i['hotel_image']
+            }
+            abc = []
+            for i,j in images.items():
+                if i == 'hotel_image':
+                    abc.append(j)
+            image_serializer = HotelImagesSerializer(data=images,many=True)
+            if image_serializer.is_valid():
+                print(image_serializer.data)
+            else:
+                print(image_serializer.errors)
+                return Response(image_serializer.errors)
+
+        hotel_serializer = HotelSerializer(data=hotel_info)
+        if hotel_serializer.is_valid():
+            print(hotel_serializer.data)
+        else:
+            return Response(hotel_serializer.errors)
+
+        return Response('this is the test message for inserting the data in the data base')
 
 class HotelTypeView(APIView):
     def get(self,request):
@@ -108,9 +143,9 @@ class HotelTypeView(APIView):
         return Response(serializer.data)
     
 class HotelDetaileView(APIView):
-    def get(self,request,id):
-        hotel = Hotel.objects.get(pk=id)
-        hotel_Serial = HotelSerializer(hotel)
+    def get(self,request):
+        hotel = Hotel.objects.all()
+        hotel_Serial = HotelDetaileSerializer(hotel,many=True)
         return Response(hotel_Serial.data)
 
 

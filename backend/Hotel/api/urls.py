@@ -11,8 +11,8 @@ urlpatterns = [
     path("auth/admin/<int:id>",views.AdminAuthenticationView.as_view()),
 
     #hotel path starts here
-    path("hotel",views.HotelView.as_view()),
+    path("hotel/create",views.CreateHotelView.as_view()),
     path("hotel/type",views.HotelTypeView.as_view()),
-    path("hotel/<int:id>",views.HotelDetaileView.as_view()),
+    path("hotel/",views.HotelDetaileView.as_view()),
 
 ]
