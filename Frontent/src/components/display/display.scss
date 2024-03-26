@@ -1,55 +1,13 @@
-.display-wrap{
-    max-width: 1200px;
-    margin: 0 auto;
+.display-grid{
     display: grid;
-    grid-template-columns: 250px 1fr;
-    gap: 50px;
-    padding: 100px 0;
+    grid-template-columns: 1fr;
+    padding: 15px 35px;
+    gap: 45px 15px;
 
-    .filter{
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        align-items: flex-start;
-        padding: 25px;
-        border: 2px solid rgb(184, 177, 177);
-        border-radius: 8px;
-
-        .fil{
-            font-size: 22px;
-            font-weight: 550;
-            width: 100%;
-            padding: 2px 5px;
-            border-bottom: 2px solid rgb(182, 174, 174,.7);
-        }
-        .filter-by{
-            font-size: 20px;
-            width: 100%;
-            padding: 5px;
-            border-bottom:  2px solid rgb(182, 174, 174,.7);
-        }
-        & .rating{
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-
-            ul li{
-                list-style: none;
-                padding: 5px;
-                cursor: pointer;
-            }
-        }
-    }
-    .display{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .display-top{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 20px;
-        }
+    .hotel-wrapper{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 35px 15px;
+        margin-bottom: 15px;
     }
 }

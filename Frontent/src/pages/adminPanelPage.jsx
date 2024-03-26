@@ -5,7 +5,7 @@ export default function AdminPanel(){
     return (
         <>
             <Headers/>
-            <Admin/>
+            <Admin/> 
         </>
     )
 }

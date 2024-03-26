@@ -30,28 +30,3 @@ export default function HomePage(){
       </>
   )
 }
-
-export const loader = async function fetchData(){
-  const data = await fetch("http://127.0.0.1:8000/hotel", {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  const response = await data.json()
-  return response;
-}
-
-/*   const [fetchData,setFetchData] = useState([]);
-    const [loaded , setloaded] = useState(false);
-    useEffect(()=>{
-      async function fetchData(){
-        const data = await fetch("http://127.0.0.1:8000/hotel")
-        const response = await data.json()
-        setFetchData(pre=>{
-          return [...response]
-        });
-        setloaded(pre=>true);
-      }
-      fetchData()
-    },[]);   */

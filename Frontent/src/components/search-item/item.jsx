@@ -46,44 +46,22 @@ function createStart(num){
 }
 export default function Item({ data }) {
     const da = [data]
-    return (
-        <>
-            {da.map((el, i) => {
-
-                return (
-                    <div key={i} className="item-wrap">
-                        <div className="left-img">
-                            <img src="https://imgs.search.brave.com/PSTChP-356Hx_Dm-dSJeVw7vZugv_2aPiLbt4kLcuhY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudHJ2bC1tZWRp/YS5jb20vaG90ZWxz/LzIzMDAwMDAwLzIy/ODkwMDAwLzIyODgy/MzAwLzIyODgyMjM2/LzMwMDgxYmMzX3ou/anBn" width={350} height={300} />
-                        </div>
-                        <div className="right-info">
-                            <div className="top">
-                                <div className="name-rating">
-                                    <p className="stars">
-                                       {createStart(el.star)}
-                                        <span>luxury</span>
-                                    </p>
-                                    {el.hotelName}
-                                    
-                                </div>
-                                <p className="rate">Great <span className="num">{el.rating}</span></p>
-
-                            </div>
-                            <div className="center">
-                                {el.description}
-                            </div>
-                            <div className="bottom">
-                                <div className="left">
-                                    {el.assets.map((a,i)=><p key={i}>{a.item}</p>)}
-                                    <label >+1</label>
-                                </div>
-                                <div className="right">
-                                    <p className="rate"> <span>${el.rate} </span>per night</p>
-                                    <button>View more</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )})}
-        </>
-    )
+    return(
+        <div className="item-wrapper">
+            <div className="hotel-image">
+                <img src="https://imgs.search.brave.com/8zmS_umOIzk7YjDehvdMzrm3JZ-Sgso-CqlhUib3DE4/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9idXJz/dC5zaG9waWZ5Y2Ru/LmNvbS9waG90b3Mv/dGFubmVkLXNhbmQt/ZHVuZXMtc3Vycm91/bmRlZC1hbi1vcGVu/LXJlc2Vydm9pci5q/cGc_d2lkdGg9MTAw/MCZmb3JtYXQ9cGpw/ZyZleGlmPTAmaXB0/Yz0w" width={'100%'} height={'100%'} />
+            </div>
+            <div className="hotel-info">
+                <div className="title">
+                    <p>
+                        <h1>Deluxe Suite</h1>
+                        <h1>$100</h1>
+                    </p>
+                    <p>suite Room</p>
+                </div>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil ipsum autem cumque ad, perspiciatis cupiditate, illo eaque nam tenetur possimus molestiae eos commodi consequatur tempora error voluptatum deserunt hic fugiat?</p>
+                <a href="#"><button>BOOK NOW</button></a>
+            </div>
+        </div>
+    );
 }

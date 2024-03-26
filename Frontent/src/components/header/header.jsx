@@ -20,7 +20,7 @@ export default function Header(){
             <div className='nav-left'>
                 <h3>Hotelzz</h3>
                 <div className='nav-icons'>
-                <i id='user' className='bx bxs-user-circle'></i>
+               <Link to={'admin'}> <i id='user' className='bx bxs-user-circle'></i></Link>
                 <button onClick={handleClick}><i id='moon' className='bx bx-moon'></i></button>
                 </div>
             </div>

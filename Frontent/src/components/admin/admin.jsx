@@ -3,6 +3,7 @@ import { TbBrandBooking } from "react-icons/tb";
 import { IoCashOutline } from "react-icons/io5";
 import { useState } from "react";
 import {Bar} from 'react-chartjs-2'
+import CreateNewHotelForm from '../hotelForm/createNewHotel'
 import {Chart} from 'chart.js/auto'
 import './admin.scss'
 
@@ -66,19 +67,21 @@ export default function AdminPanel() {
                         <td>0</td>
                     </tr>
                 </table>
-                :   <div style={{width:'100%',height:'50vh'}}>
-                        <Bar
-                        data={data}
-                        width={100}
-                        height={50}
-                        options={{
-                        maintainAspectRatio: false
-                        }}
-                />
-                </div>
+                :  <CreateNewHotelForm/>
                 }
 
             </div>
         </section >
     )
 }
+
+<div style={{width:'100%',height:'50vh'}}>
+<Bar
+data={data}
+width={100}
+height={50}
+options={{
+maintainAspectRatio: false
+}}
+/>
+</div>
