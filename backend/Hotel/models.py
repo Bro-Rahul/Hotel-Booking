@@ -164,10 +164,6 @@ class HotelBooking(models.Model):
 class HotelImages(models.Model):
     hotel_image = models.FileField(upload_to="media")
     hotel_id = models.ForeignKey(Hotel,on_delete=models.CASCADE,related_name = "images")
-    
-    class Meta:
-        verbose_name_plural = "Hotel Images"
-        
 
     def __str__(self) -> str:
         return f"image of hotel {self.hotel_id.hotel_name}"

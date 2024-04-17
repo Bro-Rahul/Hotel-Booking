@@ -16,7 +16,7 @@ const route = createBrowserRouter([
   {path:'sort/detaile' , element:<ProductDetaile/>,errorElement:<ErrorPage/>},
   {path:'login',element:<LoginRegister/>,action:LoginAction},
   {path:'register',element:<LoginRegister/>,action:RegisterAction},
-  {path:'admin',element:<AdminPanel/>},
+  {path:'/admin',element:<AdminPanel/>},
 ]);
 function App() {
   authenticateFromLocalStore()

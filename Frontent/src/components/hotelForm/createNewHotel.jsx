@@ -1,6 +1,7 @@
 import './createNewHotel.scss'
 import { FaAngleDown } from "react-icons/fa";
 import { useState,useRef } from 'react';
+import axios from 'axios'
 
 function Input({htmlfor,type,...rest}){
     return(
@@ -25,20 +26,38 @@ export default function CreateNewHotelForm(){
         setSelect(pre=>!pre)
     }
 
+    async function handleForm(e){
+        e.preventDefault();
+        const data = new FormData(e.target);
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/hotel/create', data, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            });
+            
+            alert(response.data);
+        } catch (error) {
+            console.error('Error uploading files:', error);
+            alert('Failed to upload files.');
+        }
+    }
+
   
    
     return (
-        <form>
+        <form method='POST' onSubmit={handleForm}>
             <div id='form-wrapper'>
                 <Input htmlfor={"Hotel Name"} type={'text'} required/>
                 <Input htmlfor={"Hotel Pin"} type={'number'} required/>
                 <Input htmlfor={"Hotel Address"} type={"text"} required/>
                 <Input htmlfor={"Hotel Rate"} type={'number'} required/>
-                <Input style={{height:'45px'}} htmlfor={"Hotel Images"} type={'file'} required multiple/>
+                <Input style={{height:'45px'}} htmlfor={"images"} type={'file'} required multiple/>
                 <Input htmlfor={"Hotel Facility"} type={'text'} required/>
                 <div className='hotel-type'>
                     <div>
-                        <input ref={inputRef} type="text" defaultValue={'Royal'} onChange={()=>handleChange(mes)}/>
+                        <input ref={inputRef} type="text" name="Hotel Type" defaultValue={'Royal'} onChange={()=>handleChange(mes)}/>
                        <button onClick={()=>setSelect(pre=>!pre)} type='button'><FaAngleDown/> </button>
                     </div>
                    

@@ -2,9 +2,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.parsers import MultiPartParser
 from rest_framework.authtoken.models import Token
 from .serializer import *
 from Hotel.models import *
+
 
 
 
@@ -94,48 +96,6 @@ class Authentication(ObtainAuthToken):
         return Response(info)
         
 
-
-
-
-# Hotel view starts here  
-class CreateHotelView(APIView):
-    def post(self,request):
-        hotel_images = request.data['images']
-        hotel_info = {
-            'hotel_name' : request.data['hotel_name'],
-            'hotel_pincode' : request.data['hotel_pincode'],
-            'hotel_rate' : request.data['hotel_rate'],
-            'booked_status' : request.data['booked_status'],
-            'hotel_address' : request.data['hotel_address'],
-            'hotel_type' : request.data['hotel_type']
-
-        }
-        hotel_facility = request.data['facility']
-        hotel = Hotel.objects.get(hotel_name = hotel_info['hotel_name'])
-        for i in hotel_images:
-            images = {
-                'hotel_id' : hotel.pk,
-                'hotel_image' : i['hotel_image']
-            }
-            abc = []
-            for i,j in images.items():
-                if i == 'hotel_image':
-                    abc.append(j)
-            image_serializer = HotelImagesSerializer(data=images,many=True)
-            if image_serializer.is_valid():
-                print(image_serializer.data)
-            else:
-                print(image_serializer.errors)
-                return Response(image_serializer.errors)
-
-        hotel_serializer = HotelSerializer(data=hotel_info)
-        if hotel_serializer.is_valid():
-            print(hotel_serializer.data)
-        else:
-            return Response(hotel_serializer.errors)
-
-        return Response('this is the test message for inserting the data in the data base')
-
 class HotelTypeView(APIView):
     def get(self,request):
         catagories = Catagories.objects.all()
@@ -148,5 +108,40 @@ class HotelDetaileView(APIView):
         hotel_Serial = HotelDetaileSerializer(hotel,many=True)
         return Response(hotel_Serial.data)
 
-
-
+        
+class CreateNewHotelView(APIView):
+    parser_classes = [MultiPartParser]
+    def post(self,request):
+        catogory , create = Catagories.objects.get_or_create(catogory = request.data.get('Hotel Type'))
+        hotel_data = {
+            'hotel_name' : request.data.get('Hotel Name'),
+            'hotel_pincode' : request.data.get('Hotel Pin'),
+            'hotel_address' : request.data.get('Hotel Address'),
+            'hotel_type' : catogory.pk,
+            'hotel_rate' : request.data.get('Hotel Rate'),
+            'booked_status' : False
+        }
+        hotel_serilizer = HotelSerializer(data=hotel_data)
+        if hotel_serilizer.is_valid():
+            hotel_serilizer.save()
+            hotel = Hotel.objects.get(hotel_name = hotel_data['hotel_name'])
+            
+            hotel_images = request.FILES.getlist('images')
+            images = [{ 'hotel_id':hotel.pk,'hotel_image': image } for image in hotel_images]
+            for i in images:
+                image_serilizer = HotelImagesSerializer(data=i)
+                if image_serilizer.is_valid():
+                    image_serilizer.save()
+                else :
+                    return Response(image_serilizer.errors)
+            facility_data = {
+                'hotel_name' : hotel.pk,
+                'hotel_facility' : request.data.get('Hotel Facility')
+            }
+            facility_serilizer = HotelFacilitySerializer(data = facility_data)
+            if facility_serilizer.is_valid():
+                facility_serilizer.save()
+            
+            return Response("Hotel has been create successfully")
+        else:
+            return Response("Hotel is not create due to some problems")

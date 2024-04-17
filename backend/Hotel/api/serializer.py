@@ -34,7 +34,7 @@ class HotelImagesSerializer(ModelSerializer):
 class HotelFacilitySerializer(ModelSerializer):
     class Meta:
         model = HotelFacility
-        fields = ['hotel_facility']
+        fields = '__all__'
 
 class HotelReviewSerializer(ModelSerializer):
     class Meta:
