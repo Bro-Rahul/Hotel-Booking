@@ -238,8 +238,7 @@ export const RegisterAction = async function createCustomer({ request, params })
         return redirect('/register')
     } else {
         const responseData = await response.json();
-        console.log(responseData); // Assuming your server returns a message upon successful registration
-        // Redirect the user to the home page using React Router's history object or <Redirect> component
+        console.log(responseData);
     }
 
     return redirect('/login');

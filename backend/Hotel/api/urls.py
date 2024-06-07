@@ -1,18 +1,14 @@
-from django.urls import path
-from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path,include
 from . import views
 urlpatterns = [
-
-    #authentcation paths starts here
-    path("auth/create/admin",views.CreateAdminUserView.as_view()),
-    path("auth/create/customer",views.CreateCustomerUserView.as_view()),
-    path("auth/login",views.Authentication.as_view()),
-    path("auth/customer/<int:id>",views.CustomerAuthenticationView.as_view()),
-    path("auth/admin/<int:id>",views.AdminAuthenticationView.as_view()),
-
-    #hotel path starts here
-    path("hotel/create",views.CreateNewHotelView.as_view()),
-    path("hotel/type",views.HotelTypeView.as_view()),
-    path("hotel/",views.HotelDetaileView.as_view()),
-
+    path('hotel',views.HotelView.as_view()),
+    path('hotel/<int:id>',views.HotelView.as_view()),
+    path('hotel/room',views.HotelRoomsView.as_view()),
+    path('hotel/room/<int:id>',views.HotelRoomsView.as_view()),
+    path('hotel/room/booking',views.BookingView.as_view()),
+    path('reviews',views.ReviewsView.as_view()),
+    path('auth',views.AuthenticationView.as_view()),
+    path('create/admin',views.AdminUsersView.as_view()),
+    path('create/customer',views.CustomerUsersView.as_view()),
+    path('api-auth',include('rest_framework.urls',namespace="api"))
 ]

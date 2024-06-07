@@ -1,0 +1,156 @@
+[
+    {
+        "model" : "hotel.hotel",
+        "pk" : 1,
+        "fields" : {
+            "name" : "Taj Hotel",
+            "description" : "This is an description to be have for the data",
+            "created_by" : 1,
+            "created_at": "2021-09-01T13:20:30+03:00",
+            "updated_at": "2021-09-01T13:20:30+03:00",
+            "rules" : {
+                "Check-in": "From 15:00",
+                "Check-out": "Until 12:00",
+                "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please check what conditions may apply to each option when making your selection.",
+                "Children and beds": "hildren of any age are welcome.Children 18 years and above will be charged as adults at this property.To see correct prices and occupancy information, please add the number of children in your group and their ages to your search.",
+                "Age restriction" : "The minimum age for check-in is 18",
+                "Pets" : "Pets are not allowed."
+            },
+            "near_by": {
+                "What's nearby": {
+                    "Ramleela Maidan": "850m",
+                    "Late Minatai Thakre Kridangan": "920m",
+                    "Pali Ground": "1200m",
+                    "Jay Jawan Udyan": "320m"
+                },
+                "Top attractions": {
+                    "Bandra Worli Sea Link": "9km",
+                    "Sewri Fort": "11km",
+                    "Nehru Science Centre": "12km"
+                },
+                "Beaches in the neighbourhood": {
+                    "Juhu Beach": "1220m",
+                    "Versova Beach": "1500m"
+                },
+                "Natural beauty": {
+                    "LakePowai Lake": "1500m",
+                    "ForestOpen Green Land": "5000m"
+                }
+            },
+            "facility": {
+                "Bathroom": [
+                    "Toilet paper",
+                    "Towels",
+                    "Towels/sheets (extra fee)",
+                    "Bath or shower",
+                    "Slippers",
+                    "Private bathroom",
+                    "Toilet",
+                    "Free toiletries",
+                    "Bathrobe",
+                    "Hairdryer",
+                    "Bath",
+                    "Shower"
+                ],
+                "Reception services": [
+                    "Invoice provided",
+                    "Lockers",
+                    "Private check-in/check-out",
+                    "Concierge service",
+                    "ATM/cash machine on site",
+                    "Luggage storage",
+                    "Currency exchange",
+                    "Express check-in/check-out",
+                    "24-hour front desk"
+                ]
+            },
+            "address" : {
+                "road": "JA Project road",
+                "middle": "Chhatrapati Shivaji International Airport",
+                "near": "Andheri East",
+                "pimcode": "400099",
+                "city": "Mumbai",
+                "country": "India"
+            },
+            "total_rooms" : 2
+        },
+        "rating" : 0.00
+    },
+    {
+        "model" : "hotel.hotel",
+        "pk" : 2,
+        "fields" : {
+            "name" : "New Continental",
+            "description" : "This is an description to be have for the data",
+            "created_by" : 1,
+            "created_at": "2021-09-01T13:20:30+03:00",
+            "updated_at": "2021-09-01T13:20:30+03:00",
+            "rules" : {
+                "Check-in": "From 15:00",
+                "Check-out": "Until 12:00",
+                "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please check what conditions may apply to each option when making your selection.",
+                "Children and beds": "hildren of any age are welcome.Children 18 years and above will be charged as adults at this property.To see correct prices and occupancy information, please add the number of children in your group and their ages to your search.",
+                "Age restriction" : "The minimum age for check-in is 18",
+                "Pets" : "Pets are not allowed."
+            },
+            "near_by": {
+                "What's nearby": {
+                    "Ramleela Maidan": "850m",
+                    "Late Minatai Thakre Kridangan": "920m",
+                    "Pali Ground": "1200m",
+                    "Jay Jawan Udyan": "320m"
+                },
+                "Top attractions": {
+                    "Bandra Worli Sea Link": "9km",
+                    "Sewri Fort": "11km",
+                    "Nehru Science Centre": "12km"
+                },
+                "Beaches in the neighbourhood": {
+                    "Juhu Beach": "1220m",
+                    "Versova Beach": "1500m"
+                },
+                "Natural beauty": {
+                    "LakePowai Lake": "1500m",
+                    "ForestOpen Green Land": "5000m"
+                }
+            },
+            "facility": {
+                "Bathroom": [
+                    "Toilet paper",
+                    "Towels",
+                    "Towels/sheets (extra fee)",
+                    "Bath or shower",
+                    "Slippers",
+                    "Private bathroom",
+                    "Toilet",
+                    "Free toiletries",
+                    "Bathrobe",
+                    "Hairdryer",
+                    "Bath",
+                    "Shower"
+                ],
+                "Reception services": [
+                    "Invoice provided",
+                    "Lockers",
+                    "Private check-in/check-out",
+                    "Concierge service",
+                    "ATM/cash machine on site",
+                    "Luggage storage",
+                    "Currency exchange",
+                    "Express check-in/check-out",
+                    "24-hour front desk"
+                ]
+            },
+            "address" : {
+                "road": "JA Project road",
+                "middle": "Chhatrapati Shivaji International Airport",
+                "near": "Andheri East",
+                "pimcode": "400099",
+                "city": "Mumbai",
+                "country": "India"
+            },
+            "total_rooms" : 2
+        },
+        "rating" : 0.00
+    }
+]

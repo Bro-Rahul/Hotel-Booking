@@ -1,147 +1,251 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from .serilizers import *
 from rest_framework import status
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.parsers import MultiPartParser
+from hotel.models import *
 from rest_framework.authtoken.models import Token
-from .serializer import *
-from Hotel.models import *
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAdminUser,IsAuthenticated
+from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly
 
 
 
-
-# this is for the Admin users  authentication views     
-class AdminAuthenticationView(APIView):
-    def get(self,request,id):
-        users = User.objects.get(pk=id)
-        serializer = AdminAuthenticationserializer(users)
-        return Response(serializer.data)
-
-
-class CreateAdminUserView(APIView):
-    def get(self,request):
-        users = User.objects.all()
-        serializer = AdminAuthenticationserializer(users,many=True)
-        return Response(serializer.data)
-    
-    def post(self,request):
-        serializers = AdminAuthenticationserializer(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            return Response(serializers.data)
-        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)     
-
-
-
-
-# this is for the customer authentication views     
-class CustomerAuthenticationView(APIView):                  
-    def get(self,request,id):
-        users = Customer.objects.get(pk=id)
-        serializer = CustomerAuthenticationserializer(users)
-        return Response(serializer.data)
-    
-    def post(self,request):
-        serializers = CustomerAuthenticationserializer(data=request.data)
-        if serializers.is_valid():
-            serializers.save()
-            return Response(serializers.data)
-        return Response(serializers.errors,status=status.HTTP_400_BAD_REQUEST)
-
-
-class CreateCustomerUserView(APIView):
-    def get(self,request):
-        users = Customer.objects.all()
-        serializer = CustomerAuthenticationserializer(users,many=True)
-        return Response(serializer.data)
-    
-    def post(self,request):
-        serializers = CustomerAuthenticationserializer(data=request.data)
+class AdminUsersView(APIView):
+    model = User
+    serializer = AdminSerializer
+    def post(self,request):     
         try:
-            if serializers.is_valid():
-                serializers.save()
-                return Response({'detaile':'user has been created !','status':status.HTTP_201_CREATED})
-        except:
-            return Response({"error":'username is already exists'},status=status.HTTP_406_NOT_ACCEPTABLE)
+            data = request.data
+            serializer = self.serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except ValidationError as e:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
 
+class CustomerUsersView(APIView):
+    model = Customer
+    serializer = CustomerSerializer
+    def post(self,request):     
+        try:
+            data = request.data
+            serializer = self.serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except ValidationError as e:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 
-class Authentication(ObtainAuthToken):
-    def get(self,request):
-        user = request.session.get('user',None)
-        print(user)
-        token = Token.objects.get(user=user)
-        user_info = User.objects.get(username = user)
-        user_serializer = AuthenticationSerializer(user_info)
-        info = {
-            **user_serializer.data,
-            'token' : token.key
-        }
-        return Response(info)
-     
+class AuthenticationView(ObtainAuthToken):
+    model = User
+    serialier = UsersSerilizers
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        user_info = User.objects.get(username = user)
-        user_serializer = AuthenticationSerializer(user_info)
-        info = {
-            **user_serializer.data,
-            'token' : token.key
-        }
-        request.session['user'] = user_info.username
-        print(request.session.get('username',None))
-        return Response(info)
+        try:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data['user']
+            token, created = Token.objects.get_or_create(user=user)
+            user_info = User.objects.get(username = user)
+            user_serializer = self.serialier(user_info)
+            info = {
+                'user_info':user_serializer.data,
+                'token' : token.key
+            }
+            print("saving the data in teh request user ")
+            request.user = user_info.username
+
+            return Response(info,status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error" : "please enter valid creadencials !"},status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+
+class HotelView(APIView):
+    model = Hotel
+    serializer = HotelSerilizers
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = [IsAuthenticated, IsAdminUser]
+        elif self.request.method in ['PUT', 'DELETE']:
+            self.permission_classes = [IsAuthenticated, HotelOwnerOrReadOnly]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+
+    def get(self,request):
+        self.get_permissions()
+        data = Hotel.objects.all()
+        serializer = HotelSerilizers(data,many=True)
+        return Response(serializer.data)
+        
+    def post(self,request):
+        try:
+            data = request.data
+            serializer = HotelSerilizers(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(serializer.error_messages)
         
 
-class HotelTypeView(APIView):
+    def put(self,request,id):
+        try:
+            instance = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,instance)
+            serializer = self.serializer(instance,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except ValidationError as e:
+            return Response(e.message,status=status.HTTP_400_BAD_REQUEST)
+        
+    def delete(self,request,id):
+        try:
+            hotel = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,hotel)
+            if not hotel:
+                raise ValidationError('cant find the hotel please enter a valid hotel')
+            else:
+                hotel.delete()
+                return Response({'delete':'hotel has been delete successfully !!'},status=status.HTTP_200_OK)
+        except ValidationError as v:
+            return Response(v.message)
+                
+
+class HotelRoomsView(APIView):
+    model = HotelRooms
+    serializer = HotelRoomsSerilizers
+    authentication_classes = [TokenAuthentication]
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = [IsAuthenticated, IsAdminUser]
+        elif self.request.method in ['PUT', 'DELETE']:
+            self.permission_classes = [IsAuthenticated, HotelRoomOwnerOrReadOnly]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+    
+
     def get(self,request):
-        catagories = Catagories.objects.all()
-        serializer = HotelCatogorySerializer(catagories,many=True)
+        print(request.user)
+        data = self.model.objects.all()
+        serializer = self.serializer(data,many=True)
         return Response(serializer.data)
     
-class HotelDetaileView(APIView):
-    def get(self,request):
-        hotel = Hotel.objects.all()
-        hotel_Serial = HotelDetaileSerializer(hotel,many=True)
-        return Response(hotel_Serial.data)
+    def post(self,request):
+        try:
+            data = request.data
+            serializer = self.serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.error_messages)
+        except ValidationError as v:
+            return Response(serializer.errors)
+        
+    def put(self,request,id):
+        try:
+            instance = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,instance)
+            serializer = self.serializer(instance, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except self.model.DoesNotExist as e:
+            return Response({'info' : "Room does not exists ! "},status=status.HTTP_400_BAD_REQUEST)
 
         
-class CreateNewHotelView(APIView):
-    parser_classes = [MultiPartParser]
-    def post(self,request):
-        catogory , create = Catagories.objects.get_or_create(catogory = request.data.get('Hotel Type'))
-        hotel_data = {
-            'hotel_name' : request.data.get('Hotel Name'),
-            'hotel_pincode' : request.data.get('Hotel Pin'),
-            'hotel_address' : request.data.get('Hotel Address'),
-            'hotel_type' : catogory.pk,
-            'hotel_rate' : request.data.get('Hotel Rate'),
-            'booked_status' : False
-        }
-        hotel_serilizer = HotelSerializer(data=hotel_data)
-        if hotel_serilizer.is_valid():
-            hotel_serilizer.save()
-            hotel = Hotel.objects.get(hotel_name = hotel_data['hotel_name'])
-            
-            hotel_images = request.FILES.getlist('images')
-            images = [{ 'hotel_id':hotel.pk,'hotel_image': image } for image in hotel_images]
-            for i in images:
-                image_serilizer = HotelImagesSerializer(data=i)
-                if image_serilizer.is_valid():
-                    image_serilizer.save()
-                else :
-                    return Response(image_serilizer.errors)
-            facility_data = {
-                'hotel_name' : hotel.pk,
-                'hotel_facility' : request.data.get('Hotel Facility')
-            }
-            facility_serilizer = HotelFacilitySerializer(data = facility_data)
-            if facility_serilizer.is_valid():
-                facility_serilizer.save()
-            
-            return Response("Hotel has been create successfully")
+    def delete(self,request,id):
+        try:
+            room = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,room)
+            if not room:
+                raise ValidationError("No such room exists ")
+            room.delete()
+            return Response({'info':'Room has been deleted successfully'},status=status.HTTP_200_OK)
+        except self.model.DoesNotExist as e:
+            return Response({'info':'Room does not exists'},status=status.HTTP_400_BAD_REQUEST)
+
+class ReviewsView(APIView):
+    model = Reviews
+    serializer = ReviewSerilizers
+    authentication_classes = [TokenAuthentication]
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            self.permission_classes = [IsAuthenticated]
+        elif self.request.method in ['PUT', 'DELETE']:
+            self.permission_classes = [IsAuthenticated, ReviewOwnerOrReadOnly]
         else:
-            return Response("Hotel is not create due to some problems")
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+    
+    def get(self,request):
+        try:
+            data = self.model.objects.all()
+            serializer = self.serializer(data,many=True)
+            return Response(serializer.data)
+        except self.model.DoesNotExist as e:
+            return Response({'info':"can't fetch the data for now please try later !"},status=status.HTTP_306_RESERVED)
+
+    def post(self,request):
+        try:
+            data = request.data
+            serializer = self.serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except ValidationError as e:
+            return Response(e.message,status=status.HTTP_400_BAD_REQUEST)
+        
+    def put(self,request,id):
+        try:
+            instance = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,instance)
+            serializer = self.serializer(instance,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_401_UNAUTHORIZED)
+        except self.model.DoesNotExist:
+            return Response({'info':"review does not exists !"},status=status.HTTP_400_BAD_REQUEST) 
+        
+    def delete(self,request,id):
+        try:
+            instance = self.model.objects.get(pk=id)
+            self.check_object_permissions(request,instance)
+            if not instance:
+                raise ValidationError("No such room exists ")
+            instance.delete()
+            return Response({'info':'Room has been deleted successfully'},status=status.HTTP_200_OK)
+        except self.model.DoesNotExist as e:
+            return Response({'info':'Room does not exists'},status=status.HTTP_400_BAD_REQUEST)
+
+
+class BookingView(APIView):
+    def get(self,request):
+        data = Booking.objects.all()
+        serializers = BookingSerializer(data,many=True)
+        return Response(serializers.data)

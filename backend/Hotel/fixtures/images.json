@@ -1,0 +1,82 @@
+[
+    {
+        "model": "hotel.hotelimages",
+        "pk": 1,
+        "fields": {
+            "image": "media/images/1.png",
+            "hotel": 1
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 2,
+        "fields": {
+            "image": "media/images/2.png",
+            "hotel": 1
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 3,
+        "fields": {
+            "image": "media/images/3.png",
+            "hotel": 1
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 4,
+        "fields": {
+            "image": "media/images/2.png",
+            "hotel": 1
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 5,
+        "fields": {
+            "image": "media/images/2.png",
+            "hotel": 1
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 6,
+        "fields": {
+            "image": "media/images/29.png",
+            "hotel": 2
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 7,
+        "fields": {
+            "image": "media/images/26.png",
+            "hotel": 2
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 8,
+        "fields": {
+            "image": "media/images/22.png",
+            "hotel": 2
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 9,
+        "fields": {
+            "image": "media/images/02.png",
+            "hotel": 2
+        }
+    },
+    {
+        "model": "hotel.hotelimages",
+        "pk": 10,
+        "fields": {
+            "image": "media/images/20.png",
+            "hotel": 2
+        }
+    }
+]

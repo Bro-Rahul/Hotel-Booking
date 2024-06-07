@@ -1,0 +1,74 @@
+[
+    {
+        "model" : "hotel.hotelrooms",
+        "pk" : 1,
+        "fields" : {
+            "hotel" : 1,
+            "rate" : 1200.25,
+            "room_facility" :  {
+                "Bathroom": [
+                    "Toilet paper",
+                    "Towels",
+                    "Towels/sheets (extra fee)",
+                    "Bath or shower",
+                    "Slippers",
+                    "Private bathroom",
+                    "Toilet",
+                    "Free toiletries",
+                    "Bathrobe",
+                    "Hairdryer",
+                    "Bath",
+                    "Shower"
+                ],
+                "Reception services": [
+                    "Invoice provided",
+                    "Lockers",
+                    "Private check-in/check-out",
+                    "Concierge service",
+                    "ATM/cash machine on site",
+                    "Luggage storage",
+                    "Currency exchange",
+                    "Express check-in/check-out",
+                    "24-hour front desk"
+                ]
+            },
+            "number_of_guess": "2 Guess"
+        }
+    },
+    {
+        "model" : "hotel.hotelrooms",
+        "pk" : 2,
+        "fields" : {
+            "hotel" : 1,
+            "rate" : 1200.25,
+            "room_facility" :  {
+                "Bathroom": [
+                    "Toilet paper",
+                    "Towels",
+                    "Towels/sheets (extra fee)",
+                    "Bath or shower",
+                    "Slippers",
+                    "Private bathroom",
+                    "Toilet",
+                    "Free toiletries",
+                    "Bathrobe",
+                    "Hairdryer",
+                    "Bath",
+                    "Shower"
+                ],
+                "Reception services": [
+                    "Invoice provided",
+                    "Lockers",
+                    "Private check-in/check-out",
+                    "Concierge service",
+                    "ATM/cash machine on site",
+                    "Luggage storage",
+                    "Currency exchange",
+                    "Express check-in/check-out",
+                    "24-hour front desk"
+                ]
+            },
+            "number_of_guess": "2 Guess"
+        }
+    }
+]

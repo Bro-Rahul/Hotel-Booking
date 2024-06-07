@@ -1,0 +1,23 @@
+[
+    {
+        "model" : "hotel.category",
+        "pk" : 1,
+        "fields":{
+            "name" : "Royal"
+        }   
+    },
+    {
+        "model" : "hotel.category",
+        "pk" : 2,
+        "fields":{
+            "name" : "Larged"
+        }   
+    },
+    {
+        "model" : "hotel.category",
+        "pk" : 3,
+        "fields":{
+            "name" : "small"
+        }   
+    }
+]

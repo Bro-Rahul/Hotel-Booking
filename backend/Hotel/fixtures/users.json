@@ -1,0 +1,15 @@
+[
+    { 
+        "model": "hotel.user",
+        "pk": 1,
+        "fields":{
+          "username": "rahul",
+          "password": "pbkdf2_sha256$720000$G2ORbU6JLAViDHO8CgJWx9$cXUHSvwYAW6y3REwrgE6OUWbiEhwc/e1ASGUUPMI/Ro=",
+          "email": "rahul@gmail.com",
+          "is_superuser": true,
+          "is_staff": true,
+          "is_active": true
+        }
+    }
+]
+    

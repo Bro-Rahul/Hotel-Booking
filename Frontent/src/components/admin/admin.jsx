@@ -2,28 +2,31 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { TbBrandBooking } from "react-icons/tb";
 import { IoCashOutline } from "react-icons/io5";
 import { useState } from "react";
-import {Bar} from 'react-chartjs-2'
+import { useSelector } from "react-redux";
+import { Bar } from 'react-chartjs-2'
 import CreateNewHotelForm from '../hotelForm/createNewHotel'
-import {Chart} from 'chart.js/auto'
+import { Chart } from 'chart.js/auto'
 import './admin.scss'
 
 const data = {
     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
     datasets: [
-      {
-        label: 'My First Bar Graph',
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(75,192,192,0.4)',
-        hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [12, 19, 3, 5, 2, 3]
-      }
+        {
+            label: 'My First Bar Graph',
+            backgroundColor: 'rgba(75,192,192,0.2)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderWidth: 1,
+            hoverBackgroundColor: 'rgba(75,192,192,0.4)',
+            hoverBorderColor: 'rgba(75,192,192,1)',
+            data: [12, 19, 3, 5, 2, 3]
+        }
     ]
-  };
-  
+};
+
 
 export default function AdminPanel() {
+    const data = useSelector(state=>state.auth)
+    console.log(data.role)
     const [contentType, setContentType] = useState('Booking');
     function handleClick(msg) {
         setContentType(pre => msg)
@@ -51,23 +54,23 @@ export default function AdminPanel() {
                     <p onClick={() => handleClick('Amount Spend')}><span><IoCashOutline /></span> Amount Spent</p>
                 </div>
                 {contentType === 'Booking' ?
-                 <table>
-                    <tr>
-                        <th>ROOM NAME</th>
-                        <th>UNIT PRICE</th>
-                        <th>DISCOUNT</th>
-                        <th>NO. DAYS BOOKED</th>
-                        <th>DAYS LEFT</th>
-                    </tr>
-                    <tr>
-                        <td>Rahul Yadav </td>
-                        <td>200</td>
-                        <td>184</td>
-                        <td>1</td>
-                        <td>0</td>
-                    </tr>
-                </table>
-                :  <CreateNewHotelForm/>
+                    <table>
+                        <tr>
+                            <th>ROOM NAME</th>
+                            <th>UNIT PRICE</th>
+                            <th>DISCOUNT</th>
+                            <th>NO. DAYS BOOKED</th>
+                            <th>DAYS LEFT</th>
+                        </tr>
+                        <tr>
+                            <td>Rahul Yadav </td>
+                            <td>200</td>
+                            <td>184</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                    </table>
+                    : <CreateNewHotelForm />
                 }
 
             </div>
@@ -75,13 +78,13 @@ export default function AdminPanel() {
     )
 }
 
-<div style={{width:'100%',height:'50vh'}}>
-<Bar
-data={data}
-width={100}
-height={50}
-options={{
-maintainAspectRatio: false
-}}
-/>
+<div style={{ width: '100%', height: '50vh' }}>
+    <Bar
+        data={data}
+        width={100}
+        height={50}
+        options={{
+            maintainAspectRatio: false
+        }}
+    />
 </div>

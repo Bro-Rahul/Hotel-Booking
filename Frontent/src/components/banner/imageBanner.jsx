@@ -16,7 +16,7 @@ export default function ImageBanner() {
                     </div>
                 </div>
             </div>
-            <div className='banner-right'>
+            <div id="banner-right" className='banner-right'>
                 <div className='topimg'>
                     <img className='image' src="https://mediaassets.cbre.com/-/media/project/cbre/dotcom/global/services/property-types/hotels/hotels-topic-hero.jpeg" width={"100%"} height={"100%"} /> 
                 </div>

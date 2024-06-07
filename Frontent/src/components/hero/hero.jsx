@@ -2,7 +2,7 @@
 import './hero.scss'
 export default function Hero() {
     return (
-       <section className='hero'>
+       <section className='hero' >
         <div className='hero-left'>
             <h1>Explore Our Exquisite Hotel</h1>
             <p>Experience an Exquisite Hotel immersed in Rich History and <br />Timeless Elegance</p>
