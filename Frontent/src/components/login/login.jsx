@@ -28,7 +28,7 @@ export const LoginAction = async function loginUser({ request, params }) {
         username: data.get('username'),
         password: data.get('password')
     };
-    const response = await fetch('http://127.0.0.1:8000/auth/login', {
+    const response = await fetch('http://127.0.0.1:8000/auth', {
         method : "POST",
         headers: {
             'Content-Type': 'application/json'

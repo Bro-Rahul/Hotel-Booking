@@ -11,7 +11,7 @@ class HotelOwnerOrReadOnly(BasePermission):
 class HotelRoomOwnerOrReadOnly(BasePermission):
 
     def has_object_permission(self, request, view, obj):
-        if request.methos in SAFE_METHODS:
+        if request.method in SAFE_METHODS:
             return True
         
         return obj.hotel.created_by == request.user

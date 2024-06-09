@@ -100,16 +100,9 @@ class Customer(User):
         return f"{self.username}"
     
 
-class Category(models.Model):
-    name = models.CharField(max_length=50,unique=True,validators=[MinLengthValidator(3,"Please Enter a valid name for the hotel category "),MaxLengthValidator(50,"Please Enter an smaller name for the hotel category ")])
-    def __str__(self) -> str:
-        return self.name
-    
-    def __str__(self) -> str:
-        return self.name
  
 class Hotel(models.Model):
-    name = models.CharField(max_length=100,unique=True)
+    name = models.CharField(max_length=100)
     slug = models.SlugField(editable=False)
     description = models.TextField(max_length=300)
     created_by = models.ForeignKey(User,on_delete=models.PROTECT)
@@ -130,7 +123,6 @@ class Hotel(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super().save(*args,**kwargs)
-    
 
     def __str__(self) -> str:
         return self.name
@@ -138,11 +130,12 @@ class Hotel(models.Model):
 class HotelRooms(models.Model):
     hotel = models.ForeignKey(Hotel,related_name="hotel_room",on_delete=models.CASCADE)
     rate = models.DecimalField(max_digits=10,decimal_places=2,validators=[MinValueValidator(5,"Please enter a valid price of the hotel "),MaxValueValidator(99999999.99,"please enter a shorter amount !!")])
-    room_facility = models.JSONField()
+    room_facility = models.JSONField(default=dict)
     bed = models.CharField(max_length=50,choices=Beds.choices,default=Beds.DOUBLE1)
     number_of_guess = models.CharField(max_length=20)
-        
+    category = models.CharField(max_length=50)
     def save(self,*args, **kwargs):
+        print("inside the HotelRoom model save function")
         hotel_id = self.hotel
         total_rooms = hotel_id.total_rooms
         total_rooms_created = HotelRooms.objects.filter(hotel_id = hotel_id).count()

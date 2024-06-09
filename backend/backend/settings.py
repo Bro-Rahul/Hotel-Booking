@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'hotel',
     "corsheaders",
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

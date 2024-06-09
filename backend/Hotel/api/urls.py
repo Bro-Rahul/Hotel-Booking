@@ -1,5 +1,6 @@
 from django.urls import path,include
 from . import views
+
 urlpatterns = [
     path('hotel',views.HotelView.as_view()),
     path('hotel/<int:id>',views.HotelView.as_view()),
@@ -10,5 +11,5 @@ urlpatterns = [
     path('auth',views.AuthenticationView.as_view()),
     path('create/admin',views.AdminUsersView.as_view()),
     path('create/customer',views.CustomerUsersView.as_view()),
-    path('api-auth',include('rest_framework.urls',namespace="api"))
+    #path('api-auth',include('rest_framework.urls',namespace="api")),
 ]

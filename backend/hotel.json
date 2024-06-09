@@ -1,0 +1,331 @@
+[
+    {
+        "name": "Taj hotel",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "1",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            }
+        },
+        "facility": {
+            "general": [
+                "Room service",
+                "Pets allowed",
+                "Non-smoking rooms",
+                "Free WiFi",
+                "Family roomsParking",
+                "Restaurant",
+                "24-hour front desk",
+                "Spa and wellness centre",
+                "Swimming Pool",
+                "Electric vehicle charging station"
+            ],
+            "Reservation policy": [
+                "Free cancellation",
+                "Book without credit card",
+                "No prepayment"
+            ]
+        },
+        "address": {
+            "road": "IA Project Road",
+            "middle": " Chhatrapati Shivaji International Airport,",
+            "station": " Andheri East",
+            "city": "Mumbai",
+            "pincode": "400099",
+            "country": "India"
+        },
+        "total_rooms": 3
+    },
+    {
+        "name": "Marvel Residence",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "1",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            },
+            "Restaurants & cafes": {
+                "JW Lounge": "50m"
+            }
+        },
+        "facility": {
+            "general": [
+                "24-hour front desk",
+                "Spa and wellness centre",
+                "Wheelchair accessible",
+                "Fitness centre"
+            ],
+            "Reservation policy": [
+                "Free cancellation",
+                "Book without credit card"
+            ]
+        },
+        "address": {
+            "road": "Bkc Road",
+            "middle": "National Airport",
+            "station": " Santacurz East",
+            "city": "Mumbai",
+            "pincode": "400099",
+            "country": "India"
+        },
+        "total_rooms": 5
+    },
+    {
+        "name": "New Continental",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "2",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            }
+        },
+        "facility": {
+            "general": [
+                "Room service",
+                "Pets allowed",
+                "Non-smoking rooms",
+                "Family roomsParking",
+                "24-hour front desk",
+                "Spa and wellness centre",
+                "Wheelchair accessible",
+                "Fitness centre"
+            ],
+            "Reservation policy": [
+                "Free cancellation",
+                "No prepayment"
+            ]
+        },
+        "address": {
+            "road": "JK 216 Road",
+            "middle": " Wosington International Airport,",
+            "station": " Tom Town",
+            "city": "Los Angeles",
+            "pincode": "48561",
+            "country": "America"
+        },
+        "total_rooms": 8
+    },
+    {
+        "name": "Tri Hotel",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "1",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            },
+            "Restaurants & cafes": {
+                "JW Lounge": "50m"
+            }
+        },
+        "facility": {
+            "general": [
+                "Room service",
+                "Non-smoking rooms",
+                "Free WiFi",
+                "Family roomsParking",
+                "Restaurant",
+                "24-hour front desk",
+                "Spa and wellness centre",
+                "Electric vehicle charging station"
+            ],
+            "Reservation policy": [
+                "Free cancellation",
+                "Book without credit card",
+                "No prepayment"
+            ]
+        },
+        "address": {
+            "road": "Gandhi Nager",
+            "middle": "Charkop secter 4",
+            "station": " Kandivali West",
+            "city": "Mumbai",
+            "pincode": "400099",
+            "country": "India"
+        },
+        "total_rooms": 5
+    },
+    {
+        "name": "Sahara Hotel",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "1",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            }
+        },
+        "facility": {
+            "general": [
+                "Room service",
+                "Pets allowed",
+                "Non-smoking rooms",
+                "Free WiFi",
+                "Family roomsParking",
+                "Restaurant",
+                "24-hour front desk",
+                "Spa and wellness centre",
+                "Wheelchair accessible"
+            ],
+            "Reservation policy": [
+                "Book without credit card",
+                "No prepayment"
+            ]
+        },
+        "address": {
+            "road": "Mahaatma gandhi Road",
+            "middle": " Shivaji Nager ,",
+            "station": " Borivali West",
+            "city": "Mumbai",
+            "pincode": "400099",
+            "country": "India"
+        },
+        "total_rooms": 3
+    },
+    {
+        "name": "Trident Hotel",
+        "description": "At JW Marriott Mumbai Sahar you will find a 24-hour front desk and 24-hour in-room dining. Other facilities offered at the property include a executive lounge.Each room here will provide you with air conditioning and a minibar. Featuring a bath or shower, private bathroom also comes with a hairdryer and bathrobes. Interconnecting/ family rooms are available at a request.",
+        "created_by": "1",
+        "rules": {
+            "Check-in": "From 15:00",
+            "Check-out": "Until 12:00",
+            "Cancellation/prepayment": "Cancellation and prepayment policies vary according to accommodation type. Please enter the dates of your stay and check the conditions of your required room.",
+            "Pets": "Pets are not allowed."
+        },
+        "near_by": {
+            "What's nearby": {
+                "Ramleela Maidan": "850m",
+                "Late Minatai Thakre Kridangan": "950m",
+                "Pali Ground": "100m"
+            },
+            "Top attractions": {
+                "Bandra Worli Sea Link": "9km",
+                "Sewri Fort": "11km",
+                "Hanging Gardens": "18km",
+                "Dhobi Ghat": "14km"
+            },
+            "Beaches": {
+                "Juhu Beach": "15km",
+                "Versova Beach": "10km"
+            },
+            "Restaurants & cafes": {
+                "JW Lounge": "50m"
+            }
+        },
+        "facility": {
+            "general": [
+                "Room service",
+                "Pets allowed",
+                "Non-smoking rooms",
+                "Free WiFi",
+                "Family roomsParking",
+                "Restaurant",
+                "24-hour front desk",
+                "Electric vehicle charging station"
+            ],
+            "Reservation policy": [
+                "Free cancellation",
+                "Book without credit card",
+                "No prepayment"
+            ]
+        },
+        "address": {
+            "road": "Gs Road",
+            "middle": "Sd mart",
+            "station": " Andheri",
+            "city": "Mumbai",
+            "pincode": "400099",
+            "country": "India"
+        },
+        "total_rooms": 5
+    }
+]

@@ -23,6 +23,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Customer.objects.create(**validated_data)
+    
 
 
 class HotelImageSerilizers(serializers.ModelSerializer):
@@ -38,7 +39,6 @@ class ReviewSerilizers(serializers.ModelSerializer):
 
     def create(self, validated_data):
         try:
-            print("inside the create")
             return Reviews.objects.create(**validated_data)
         except ValidationError as e:
             raise serializers.ValidationError(e.message)
@@ -51,6 +51,8 @@ class HotelRoomsSerilizers(serializers.ModelSerializer):
 
     def create(self, validated_data):
         try:
+            print(validated_data)
+            print("inside the HotelRoom Serializer create function")
             return HotelRooms.objects.create(**validated_data)
         except ValidationError as e:
             raise serializers.ValidationError(e.message)

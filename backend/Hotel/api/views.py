@@ -6,9 +6,8 @@ from hotel.models import *
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAdminUser,IsAuthenticated
+from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
 from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly
-
 
 
 class AdminUsersView(APIView):
@@ -71,20 +70,19 @@ class AuthenticationView(ObtainAuthToken):
 class HotelView(APIView):
     model = Hotel
     serializer = HotelSerilizers
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
         if self.request.method == 'POST':
-            self.permission_classes = [IsAuthenticated, IsAdminUser]
+            self.authentication_classes = [TokenAuthentication]
+            self.permission_classes = [IsAuthenticated,IsAdminUser]
         elif self.request.method in ['PUT', 'DELETE']:
+            self.authentication_classes = [TokenAuthentication]
             self.permission_classes = [IsAuthenticated, HotelOwnerOrReadOnly]
         else:
-            self.permission_classes = [IsAuthenticated]
+            self.permission_classes = [AllowAny]
         return super().get_permissions()
 
     def get(self,request):
-        self.get_permissions()
         data = Hotel.objects.all()
         serializer = HotelSerilizers(data,many=True)
         return Response(serializer.data)
@@ -105,12 +103,14 @@ class HotelView(APIView):
     def put(self,request,id):
         try:
             instance = self.model.objects.get(pk=id)
-            self.check_object_permissions(request,instance)
-            serializer = self.serializer(instance,data=request.data)
+            #self.check_object_permissions(request,instance)
+
+            serializer = self.serializer(instance=instance,data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data,status=status.HTTP_200_OK)
             else:
+                print(serializer.errors)
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         except ValidationError as e:
             return Response(e.message,status=status.HTTP_400_BAD_REQUEST)
@@ -151,21 +151,25 @@ class HotelRoomsView(APIView):
     
     def post(self,request):
         try:
+            print("inside the post method")
             data = request.data
             serializer = self.serializer(data=data)
             if serializer.is_valid():
+                print("saving the data ")
                 serializer.save()
                 return Response(serializer.data)
             else:
+                print("inside the else ")
                 return Response(serializer.error_messages)
         except ValidationError as v:
             return Response(serializer.errors)
         
     def put(self,request,id):
         try:
+            print("inside the put ",id)
             instance = self.model.objects.get(pk=id)
             self.check_object_permissions(request,instance)
-            serializer = self.serializer(instance, data=request.data, partial=True)
+            serializer = self.serializer(instance, data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
@@ -189,14 +193,13 @@ class ReviewsView(APIView):
     model = Reviews
     serializer = ReviewSerilizers
     authentication_classes = [TokenAuthentication]
-
+    permission_classes = [AllowAny]
     def get_permissions(self):
         if self.request.method == 'POST':
             self.permission_classes = [IsAuthenticated]
         elif self.request.method in ['PUT', 'DELETE']:
             self.permission_classes = [IsAuthenticated, ReviewOwnerOrReadOnly]
-        else:
-            self.permission_classes = [IsAuthenticated]
+            self.authentication_classes = [TokenAuthentication]
         return super().get_permissions()
     
     def get(self,request):
