@@ -8,7 +8,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
 from rest_framework.generics import ListAPIView
-from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly
+from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly,BookingPermissions
+from .paginations import Paginations
 from django.db.models import Q
 
 
@@ -88,8 +89,10 @@ class HotelView(APIView):
 
     def get(self,request):
         data = Hotel.objects.all()
-        serializer = HotelSerilizers(data,many=True)
-        return Response(serializer.data)
+        paginator = Paginations()
+        paginated_queryset = paginator.paginate_queryset(data, request)
+        serializer = HotelSerilizers(paginated_queryset,many=True)
+        return paginator.get_paginated_response(serializer.data)
         
     def post(self,request):
         try:
@@ -196,21 +199,24 @@ class HotelRoomsView(APIView):
 class ReviewsView(APIView):
     model = Reviews
     serializer = ReviewSerilizers
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [AllowAny]
     def get_permissions(self):
         if self.request.method == 'POST':
+            self.authentication_classes = [TokenAuthentication]
             self.permission_classes = [IsAuthenticated]
         elif self.request.method in ['PUT', 'DELETE']:
+            self.authentication_classes = [TokenAuthentication]  
             self.permission_classes = [IsAuthenticated, ReviewOwnerOrReadOnly]
-            self.authentication_classes = [TokenAuthentication]
+        else:
+            self.permission_classes = [AllowAny]
         return super().get_permissions()
     
     def get(self,request):
         try:
             data = self.model.objects.all()
-            serializer = self.serializer(data,many=True)
-            return Response(serializer.data)
+            pagination  = Paginations()
+            pagination_queryset = pagination.paginate_queryset(data,request)
+            serializer = self.serializer(pagination_queryset,many=True)
+            return pagination.get_paginated_response(serializer.data)
         except self.model.DoesNotExist as e:
             return Response({'info':"can't fetch the data for now please try later !"},status=status.HTTP_306_RESERVED)
 
@@ -252,16 +258,65 @@ class ReviewsView(APIView):
 
 
 class BookingView(APIView):
+    model = Booking
+    serializer = BookingSerializer
+    authentication_classes = [TokenAuthentication]
+    def get_permissions(self):
+        if self.request.method in ['DELETE','PUT']:
+            self.permission_classes = [IsAuthenticated,BookingPermissions]
+        elif self.request.method == "POST":
+            self.permission_classes = [IsAuthenticated]
+        else :
+            self.permission_classes = [AllowAny]
+        return super().get_permissions()
+    
+
     def get(self,request):
-        data = Booking.objects.all()
+        data = self.model.objects.all()
         serializers = BookingSerializer(data,many=True)
-        return Response(serializers.data)
+        return Response(serializers.data,status=status.HTTP_200_OK)
+    
+    def post(self,request):
+        try:
+            data = request.data
+            serializer = self.serializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'info' : 'something went wrong !'},status=status.HTTP_408_REQUEST_TIMEOUT)
+        
+    def put(self,request,id):
+        new_data = request.data
+        try:
+            old_data = self.model.objects.get(pk=id)
+        except self.model.DoesNotExist as e:
+            return Response({'info' : 'no such data exists !'},status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer(old_data,data=new_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'info' : 'Booking has been updates succesfully '},status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+    def delete(self,request,id):
+        try:
+            data = self.model.objects.get(pk=id)
+        except self.model.DoesNotExist as e:
+            return Response({'info' : 'no such data exists !'},status=status.HTTP_400_BAD_REQUEST)
+        data.delete()
+        return Response({'info':'Booking has been cancel successfully'},status=status.HTTP_200_OK)
+    
     
 
 class AvailableRoomsView(ListAPIView):
     serializer_class = FormatedHotelRoomSerilizer  # this serializer is used to formate the data in better manner 
     queryset = Booking.objects.all()
+    pagination_class = Paginations
 
 class CurrentlyBookedHotelRoomView(ListAPIView):
     serializer_class = BookedHotelRoomSerilizer
     queryset = Booking.objects.all()
+    pagination_class = Paginations
