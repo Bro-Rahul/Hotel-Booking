@@ -7,7 +7,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
+from rest_framework.generics import ListAPIView
 from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly
+from django.db.models import Q
 
 
 class AdminUsersView(APIView):
@@ -40,6 +42,8 @@ class CustomerUsersView(APIView):
                 return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         except ValidationError as e:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'info':'email fields is required !'},status=status.HTTP_400_BAD_REQUEST)
 
 
 class AuthenticationView(ObtainAuthToken):
@@ -242,9 +246,9 @@ class ReviewsView(APIView):
             if not instance:
                 raise ValidationError("No such room exists ")
             instance.delete()
-            return Response({'info':'Room has been deleted successfully'},status=status.HTTP_200_OK)
+            return Response({'info':'Review has been deleted successfully'},status=status.HTTP_200_OK)
         except self.model.DoesNotExist as e:
-            return Response({'info':'Room does not exists'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'info':'Review does not exists'},status=status.HTTP_400_BAD_REQUEST)
 
 
 class BookingView(APIView):
@@ -252,3 +256,12 @@ class BookingView(APIView):
         data = Booking.objects.all()
         serializers = BookingSerializer(data,many=True)
         return Response(serializers.data)
+    
+
+class AvailableRoomsView(ListAPIView):
+    serializer_class = FormatedHotelRoomSerilizer  # this serializer is used to formate the data in better manner 
+    queryset = Booking.objects.all()
+
+class CurrentlyBookedHotelRoomView(ListAPIView):
+    serializer_class = BookedHotelRoomSerilizer
+    queryset = Booking.objects.all()

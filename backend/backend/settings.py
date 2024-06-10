@@ -139,7 +139,7 @@ AUTH_USER_MODEL = 'hotel.User'
 
 #session data time limit
 
-SESSION_COOKIE_AGE = 60
+#SESSION_COOKIE_AGE = 60
 #  rest settings 
 """ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

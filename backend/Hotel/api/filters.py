@@ -30,3 +30,14 @@ class HotelRoomFilter(django_filters.FilterSet):
         model = HotelRooms
 
         fields = []
+
+
+class RoomBookingStatueFilter(django_filters.FilterSet):
+
+    available_rooms = django_filters.CharFilter(field_name="checkout_date",lookup_expr="lt",label="Available Rooms")
+
+    booked_rooms = django_filters.CharFilter(field_name="checkout_date",lookup_expr="gt",label="Booked Rooms")
+
+    class Meta:
+        model = Booking
+        fields = []

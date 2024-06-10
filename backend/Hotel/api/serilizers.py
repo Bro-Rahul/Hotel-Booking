@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from hotel.models import *
 from django.db import transaction
+from django.db.models import Q
 
 class UsersSerilizers(serializers.ModelSerializer):
     class Meta:
@@ -90,3 +91,85 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = '__all__'
+
+class AvailableHotelSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Hotel
+        exclude = ['created_by','created_at','updated_at','total_rooms']
+
+
+class AvailableRoomsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = HotelRooms
+        exclude = ['hotel']
+
+class FormatedHotelRoomSerilizer(serializers.ModelSerializer):
+    data = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = ['data']
+
+    def get_data(self,obj):
+        hotel_rooms_data = HotelRooms.objects.filter(
+            Q(hotel_room__checkout_date__lt=timezone.now()) |
+            Q(hotel_room__checkout_date__isnull=True)
+        ).values('hotel', 'pk')
+
+        # Group hotel rooms by hotel
+        hotel_data = {}
+        for room in hotel_rooms_data:
+            hotel_id = room['hotel']
+            room_pk = room['pk']
+            if hotel_id in hotel_data:
+                hotel_data[hotel_id].append(room_pk)
+            else:
+                hotel_data[hotel_id] = [room_pk]
+        
+        response = []
+        for hotel_id, room_pks in hotel_data.items():
+            hotel = Hotel.objects.get(pk=hotel_id)
+            hotel_serializer = AvailableHotelSerializers(hotel)
+            hotel_rooms = [HotelRooms.objects.get(pk=id) for id in room_pks]
+            hotel_rooms_serializer = AvailableRoomsSerializers(hotel_rooms,many=True)
+            response.append({
+                'hotel' : hotel_serializer.data,
+                'rooms' : hotel_rooms_serializer.data
+            })
+        return response
+    
+
+class BookedHotelRoomSerilizer(serializers.ModelSerializer):
+    data = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Booking
+        fields = ['data']
+
+    def get_data(self,obj):
+        hotel_rooms_data = HotelRooms.objects.filter(
+            Q(hotel_room__checkout_date__gte=timezone.now())
+        ).values('hotel', 'pk')
+
+        # Group hotel rooms by hotel
+        hotel_data = {}
+        for room in hotel_rooms_data:
+            hotel_id = room['hotel']
+            room_pk = room['pk']
+            if hotel_id in hotel_data:
+                hotel_data[hotel_id].append(room_pk)
+            else:
+                hotel_data[hotel_id] = [room_pk]
+        
+        response = []
+        for hotel_id, room_pks in hotel_data.items():
+            hotel = Hotel.objects.get(pk=hotel_id)
+            hotel_serializer = AvailableHotelSerializers(hotel)
+            hotel_rooms = [HotelRooms.objects.get(pk=id) for id in room_pks]
+            hotel_rooms_serializer = AvailableRoomsSerializers(hotel_rooms,many=True)
+            response.append({
+                'hotel' : hotel_serializer.data,
+                'rooms' : hotel_rooms_serializer.data
+            })
+        return response
+    
