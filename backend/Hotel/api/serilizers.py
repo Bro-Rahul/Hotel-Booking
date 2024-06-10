@@ -3,6 +3,7 @@ from hotel.models import *
 from django.db import transaction
 from django.db.models import Q
 
+
 class UsersSerilizers(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -88,9 +89,16 @@ class HotelSerilizers(serializers.ModelSerializer):
             
 
 class BookingSerializer(serializers.ModelSerializer):
+    amount = serializers.SerializerMethodField()
     class Meta:
         model = Booking
         fields = '__all__'
+
+    def get_amount(self,obj):
+        date_time_difference = obj.checkout_date - obj.checkin_date
+        days = date_time_difference.days
+        rate = obj.room_id.rate
+        return f"Rs:-{rate*days}"
 
 class AvailableHotelSerializers(serializers.ModelSerializer):
     class Meta:
