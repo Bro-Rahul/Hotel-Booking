@@ -16,12 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+import debug_toolbar
 from hotel import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('filter-hotel',views.HotelFilterView.as_view()),
     path('filter-hotelroom',views.HotelRoomFilterView.as_view()),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('', include('hotel.api.urls'))
 ]
 

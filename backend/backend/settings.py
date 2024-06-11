@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -149,3 +151,8 @@ AUTH_USER_MODEL = 'hotel.User'
         'rest_framework.permissions.IsAuthenticated',
     ],
 } """
+
+# django-debug toolbar config
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

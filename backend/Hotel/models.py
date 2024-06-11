@@ -184,29 +184,12 @@ class Reviews(models.Model):
 class Booking(models.Model):
     booking_date = models.DateTimeField(auto_now=True)
     hotel = models.ForeignKey(Hotel,on_delete=models.CASCADE, related_name="hotel_booking")
-    #amount filde in the api add it
     checkin_date = models.DateTimeField()
     checkout_date = models.DateTimeField()
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_booked") 
     payment_mode = models.CharField(max_length=100,default="cash")
     number_of_person = models.PositiveIntegerField()
     room_id = models.ForeignKey(HotelRooms,related_name="hotel_room",on_delete=models.CASCADE)
-
-
-    def check_booking(self,reservation):
-        hotel_id = reservation.hotel_id
-        booked_rooms = Booking.objects.filter(pk = reservation.pk , hotel_id=hotel_id , checkout_date__lt=timezone.now())
-        if len(booked_rooms) != 0:
-            room = Booking.objects.get(pk = reservation.pk)
-            room.booking_date = timezone.now()
-            room.checkin_date = datetime.datetime(reservation.checkout_date)
-            room.user = reservation.user
-            room.payment_mode = "Cash"
-            room.number_of_person = reservation.persons
-            room.room_id = reservation.room_id
-            room.save()
-        else:
-            raise ValueError("No Room is Available at the moment for this room type !!")
 
 
     def __str__(self) -> str:

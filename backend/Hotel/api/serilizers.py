@@ -100,10 +100,11 @@ class BookingSerializer(serializers.ModelSerializer):
         rate = obj.room_id.rate
         return f"Rs:-{rate*days}"
 
+
 class AvailableHotelSerializers(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        exclude = ['created_by','created_at','updated_at','total_rooms']
+        exclude = ['created_by','created_at','updated_at','total_rooms',]
 
 
 class AvailableRoomsSerializers(serializers.ModelSerializer):
@@ -154,6 +155,7 @@ class BookedHotelRoomSerilizer(serializers.ModelSerializer):
         model = Booking
         fields = ['data']
 
+
     def get_data(self,obj):
         hotel_rooms_data = HotelRooms.objects.filter(
             Q(hotel_room__checkout_date__gte=timezone.now())
@@ -180,4 +182,3 @@ class BookedHotelRoomSerilizer(serializers.ModelSerializer):
                 'rooms' : hotel_rooms_serializer.data
             })
         return response
-    

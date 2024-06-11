@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser,IsAuthenticated,AllowAny
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView,RetrieveAPIView
 from .permissions import HotelOwnerOrReadOnly,HotelRoomOwnerOrReadOnly,ReviewOwnerOrReadOnly,BookingPermissions
 from .paginations import Paginations
 from django.db.models import Q
@@ -110,7 +110,7 @@ class HotelView(APIView):
     def put(self,request,id):
         try:
             instance = self.model.objects.get(pk=id)
-            #self.check_object_permissions(request,instance)
+            self.check_object_permissions(request,instance)
 
             serializer = self.serializer(instance=instance,data=request.data)
             if serializer.is_valid():
@@ -311,12 +311,20 @@ class BookingView(APIView):
     
     
 
-class AvailableRoomsView(ListAPIView):
-    serializer_class = FormatedHotelRoomSerilizer  # this serializer is used to formate the data in better manner 
-    queryset = Booking.objects.all()
-    pagination_class = Paginations
+class AvailableRoomsView(APIView):
+    model = Booking
+    serializer_class = FormatedHotelRoomSerilizer
+    data = model.objects.all()
 
-class CurrentlyBookedHotelRoomView(ListAPIView):
+    def get(self,request):
+        serializer = self.serializer_class(self.data)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+class CurrentlyBookedHotelRoomView(APIView):
+    model = Booking
     serializer_class = BookedHotelRoomSerilizer
-    queryset = Booking.objects.all()
-    pagination_class = Paginations
+    data = model.objects.all()
+
+    def get(self,request):
+        serializer = self.serializer_class(self.data)
+        return Response(serializer.data,status=status.HTTP_200_OK)
