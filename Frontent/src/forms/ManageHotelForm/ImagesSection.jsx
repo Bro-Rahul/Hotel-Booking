@@ -1,9 +1,8 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { HotelFormData } from "./ManageHotelForm";
 
 const ImagesSection = () => {
-  const { register, formState: { errors }, watch, setValue } = useFormContext < HotelFormData > ();
+  const { register, formState: { errors }, watch, setValue } = useFormContext();
   const existingImageUrls = watch("imageUrls");
 
   const handleDelete = (event, imageUrl) => {

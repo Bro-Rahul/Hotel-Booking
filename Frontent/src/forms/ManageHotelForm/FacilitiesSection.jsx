@@ -1,12 +1,12 @@
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import { hotelFacilities } from "../../config/hotel-options-config";
-import { HotelFormData } from "./ManageHotelForm";
 
 const FacilitiesSection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext<HotelFormData>();
+  } = useFormContext(); // No type arguments needed for JSX
 
   return (
     <div>

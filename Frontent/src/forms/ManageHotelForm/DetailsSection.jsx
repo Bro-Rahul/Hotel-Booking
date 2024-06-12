@@ -1,12 +1,11 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { HotelFormData } from "./ManageHotelForm";
 
 const DetailsSection = () => {
   const {
     register,
     formState: { errors },
-  } = useFormContext < HotelFormData > ();
+  } = useFormContext(); // No type arguments needed for JSX
 
   return (
     <div className="flex flex-col gap-4">
@@ -79,7 +78,7 @@ const DetailsSection = () => {
           className="border rounded w-full p-2 text-gray-700 font-normal"
         >
           <option value="" className="text-sm font-bold">
-            Select as Rating
+            Select a Rating
           </option>
           {[1, 2, 3, 4, 5].map((num) => (
             <option key={num} value={num}>

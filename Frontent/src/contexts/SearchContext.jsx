@@ -33,15 +33,15 @@ export const SearchContextProvider = ({ children }) => {
     hotelId
   ) => {
     setDestination(destination);
-    setCheckIn(checkIn);
-    setCheckOut(checkOut);
+    setCheckIn(new Date(checkIn));
+    setCheckOut(new Date(checkOut));
     setAdultCount(adultCount);
     setChildCount(childCount);
     setHotelId(hotelId);
 
     sessionStorage.setItem('destination', destination);
-    sessionStorage.setItem('checkIn', checkIn.toISOString());
-    sessionStorage.setItem('checkOut', checkOut.toISOString());
+    sessionStorage.setItem('checkIn', new Date(checkIn).toISOString());
+    sessionStorage.setItem('checkOut', new Date(checkOut).toISOString());
     sessionStorage.setItem('adultCount', adultCount.toString());
     sessionStorage.setItem('childCount', childCount.toString());
     sessionStorage.setItem('hotelId', hotelId);
